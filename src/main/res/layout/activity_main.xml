@@ -29,15 +29,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/navHostFragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_restaurant_white_24dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
