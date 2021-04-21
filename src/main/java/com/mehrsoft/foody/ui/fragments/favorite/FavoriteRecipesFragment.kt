@@ -1,4 +1,4 @@
-package com.mehrsoft.foody.fragments
+package com.mehrsoft.foody.ui.fragments.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
