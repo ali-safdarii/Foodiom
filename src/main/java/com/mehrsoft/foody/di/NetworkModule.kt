@@ -1,8 +1,7 @@
 package com.mehrsoft.foody.di
 
-import com.google.gson.Gson
 import com.mehrsoft.foody.common.Constants.Companion.BASE_URL
-import com.mehrsoft.foody.network.FoodRecipesApi
+import com.mehrsoft.foody.data.remote.FoodRecipesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,7 +41,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitApi(retrofit: Retrofit):FoodRecipesApi{
+    fun provideRetrofitApi(retrofit: Retrofit): FoodRecipesApi {
         return retrofit.create(FoodRecipesApi::class.java)
     }
 }

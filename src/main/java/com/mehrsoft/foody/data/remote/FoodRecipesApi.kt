@@ -1,4 +1,4 @@
-package com.mehrsoft.foody.network
+package com.mehrsoft.foody.data.remote
 
 import com.mehrsoft.foody.models.FoodRecipe
 import retrofit2.Response
@@ -10,7 +10,7 @@ interface FoodRecipesApi {
 
     @GET("/recipes/complexSearch")
    suspend fun getRecipes(
-        @QueryMap queries: HashMap<String,String>
+        @QueryMap queries: Map<String,String>
     ): Response<FoodRecipe>
 
 
