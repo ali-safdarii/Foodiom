@@ -68,70 +68,91 @@
                 app:layout_constraintStart_toStartOf="@+id/title_textView"
                 app:layout_constraintTop_toBottomOf="@+id/title_textView" />
 
-            <ImageView
-                android:id="@+id/heart_imageView"
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/heart_textView"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/heart_textView"
-                app:layout_constraintTop_toBottomOf="@+id/description_textView"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_favorite_black_24dp"
-                app:tint="@color/red" />
+                app:layout_constraintStart_toStartOf="@id/description_textView"
+                app:layout_constraintTop_toBottomOf="@id/description_textView">
 
-            <TextView
-                android:id="@+id/heart_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"
-                android:textColor="@color/red"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="@+id/description_textView"
-                app:layout_constraintTop_toBottomOf="@+id/heart_imageView" />
+                <ImageView
+                    android:id="@+id/heart_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-            <ImageView
-                android:id="@+id/clock_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:tint="@color/yellow"
-                app:layout_constraintEnd_toEndOf="@+id/clock_textView"
-                app:layout_constraintStart_toStartOf="@+id/clock_textView"
-                app:layout_constraintTop_toTopOf="@+id/heart_imageView"
-                app:srcCompat="@drawable/ic_schedule_black_24dp" />
+                    app:srcCompat="@drawable/ic_favorite_black_24dp"
+                    app:tint="@color/red" />
 
-            <TextView
-                android:id="@+id/clock_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="100"
-                android:textColor="@color/yellow"
-                android:textAlignment="center"
-                app:layout_constraintStart_toEndOf="@+id/heart_textView"
-                app:layout_constraintTop_toBottomOf="@+id/clock_imageView" />
+                <TextView
+                    android:id="@+id/heart_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/heart_imageView"
+                    android:layout_alignStart="@id/heart_imageView"
+                    android:layout_alignEnd="@id/heart_imageView"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/red" />
 
-            <ImageView
-                android:id="@+id/leaf_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/leaf_textView"
-                app:layout_constraintStart_toStartOf="@+id/leaf_textView"
-                app:layout_constraintTop_toTopOf="@+id/clock_imageView"
-                app:srcCompat="@drawable/ic_flag_24" />
+                <ImageView
+                    android:id="@+id/clock_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/heart_imageView"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@id/heart_imageView"
+                    app:srcCompat="@drawable/ic_schedule_black_24dp"
+                    app:tint="@color/yellow" />
 
-            <TextView
-                android:id="@+id/leaf_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="100"
-                android:textAlignment="center"
-                app:layout_constraintStart_toEndOf="@+id/clock_textView"
-                app:layout_constraintTop_toBottomOf="@+id/leaf_imageView" />
+                <TextView
+                    android:id="@+id/clock_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/clock_imageView"
+                    android:layout_alignStart="@id/clock_imageView"
+                    android:layout_alignEnd="@id/clock_imageView"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/yellow" />
+
+
+                <ImageView
+                    android:id="@+id/leaf_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_alignTop="@id/heart_imageView"
+                    android:layout_toEndOf="@id/leaf_textView"
+                    android:layout_alignStart="@id/leaf_textView"
+                    app:srcCompat="@drawable/ic_flag_24" />
+
+                <TextView
+                    android:id="@+id/leaf_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/leaf_imageView"
+                    android:layout_toEndOf="@id/clock_imageView"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:text="vegan"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="2dp"
+                    android:textAlignment="center" />
+
+                <!--
+
+-->
+
+
+            </RelativeLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

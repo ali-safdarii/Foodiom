@@ -1,7 +1,6 @@
 package com.mehrsoft.foody.ui.fragments.recipes
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mehrsoft.foody.MainViewModel
+import com.mehrsoft.foody.ui.viewmodels.MainViewModel
 import com.mehrsoft.foody.R
 import com.mehrsoft.foody.adapters.RecipesAdapter
-import com.mehrsoft.foody.common.Constants.Companion.TAG
 import com.mehrsoft.foody.common.NetworkResult
 import com.mehrsoft.foody.ui.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.*
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 
 @AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
