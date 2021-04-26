@@ -1,8 +1,7 @@
 package com.mehrsoft.foody.di
 
-import com.mehrsoft.foody.MyApplication
 import com.mehrsoft.foody.common.Constants.Companion.BASE_URL
-import com.mehrsoft.foody.data.remote.FoodRecipesApi
+import com.mehrsoft.foody.data.network.FoodRecipesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

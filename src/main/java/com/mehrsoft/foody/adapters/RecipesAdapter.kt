@@ -3,6 +3,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +13,7 @@ import com.mehrsoft.foody.R
 import com.mehrsoft.foody.common.RecipesDiffUtil
 import com.mehrsoft.foody.models.FoodRecipe
 import com.mehrsoft.foody.models.Result
-import kotlinx.android.synthetic.main.recipes_row_layout.view.*
+
 
 class RecipesAdapter(private var result:List<Result>, private val context:Context) : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
@@ -22,26 +24,33 @@ class RecipesAdapter(private var result:List<Result>, private val context:Contex
 
         fun bind(result: Result,context: Context){
 
+val titleTextView=itemView.findViewById<TextView>(R.id.title_textView)
+val descriptionTextView=itemView.findViewById<TextView>(R.id.description_textView)
+val heartTextView=itemView.findViewById<TextView>(R.id.heart_textView)
+val clockTextView=itemView.findViewById<TextView>(R.id.clock_textView)
+val leafTextView=itemView.findViewById<TextView>(R.id.leaf_textView)
+   val recipeImageView=itemView.findViewById<ImageView>(R.id.recipe_imageView)
+   val leafImageView=itemView.findViewById<ImageView>(R.id.leaf_imageView)
 
 
             itemView.apply {
-                Glide.with(context).load(result.image).into(recipe_imageView)
-                title_textView.text=result.title
-                description_textView.text=result.summary
-                heart_textView.text= result.aggregateLikes.toString()
-                clock_textView.text=result.readyInMinutes.toString()
+                Glide.with(context).load(result.image).into(recipeImageView)
+                titleTextView.text=result.title
+                descriptionTextView.text=result.summary
+                heartTextView.text= result.aggregateLikes.toString()
+                clockTextView.text=result.readyInMinutes.toString()
 
 
 
                 if(result.vegan){
-                    leaf_textView.setTextColor(
+                    leafTextView.setTextColor(
                         ContextCompat.getColor(
                             context,
                             R.color.green
                         )
                     )
 
-                    leaf_imageView.setColorFilter(
+                    leafImageView.setColorFilter(
                         ContextCompat.getColor(
                             context,
                             R.color.green

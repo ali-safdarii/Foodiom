@@ -1,4 +1,4 @@
-package com.mehrsoft.foody.data.local
+package com.mehrsoft.foody.data.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
@@ -7,7 +7,7 @@ import com.mehrsoft.foody.models.FoodRecipe
 
 class RecipesTypeConverter {
 
-    var gson:Gson= Gson()
+  private  var gson:Gson= Gson()
 
     @TypeConverter
     fun foodRecipesToString(foodRecipe: FoodRecipe):String{

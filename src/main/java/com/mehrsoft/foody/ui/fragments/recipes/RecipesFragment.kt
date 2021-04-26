@@ -1,20 +1,22 @@
 package com.mehrsoft.foody.ui.fragments.recipes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mehrsoft.foody.ui.viewmodels.MainViewModel
+import androidx.recyclerview.widget.RecyclerView
 import com.mehrsoft.foody.R
 import com.mehrsoft.foody.adapters.RecipesAdapter
 import com.mehrsoft.foody.common.NetworkResult
+import com.mehrsoft.foody.ui.viewmodels.MainViewModel
 import com.mehrsoft.foody.ui.viewmodels.RecipesViewModel
+import com.todkars.shimmer.ShimmerRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.*
+
 
 @AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
@@ -22,7 +24,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private lateinit var recipesViewModel: RecipesViewModel
     private lateinit var mAdapter:RecipesAdapter
     private lateinit var mView: View
-
+    private lateinit var recyclerView: ShimmerRecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
@@ -36,6 +38,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_recipes, container, false)
 
+
+        recyclerView = mView.findViewById<ShimmerRecyclerView>(R.id.recyclerView)
 
         requestApiData()
 

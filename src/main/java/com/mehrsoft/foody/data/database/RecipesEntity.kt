@@ -1,4 +1,4 @@
-package com.mehrsoft.foody.data.local
+package com.mehrsoft.foody.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

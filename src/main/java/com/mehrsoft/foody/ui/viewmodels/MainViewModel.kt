@@ -7,18 +7,27 @@ import android.net.NetworkCapabilities
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mehrsoft.foody.common.NetworkResult
-import com.mehrsoft.foody.data.repository.FoodRecipeRepo
+import com.mehrsoft.foody.data.repository.FoodRecipeRepository
 import com.mehrsoft.foody.models.FoodRecipe
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject
-constructor(private val repository: FoodRecipeRepo, application: Application
+@HiltViewModel
+class MainViewModel @Inject
+constructor(private val repository: FoodRecipeRepository, private val context: Context
 
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
+
+
+
+
+    /*Retrofit*/
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
     fun getRecipes(query: Map<String, String>) = viewModelScope.launch {
@@ -44,7 +53,7 @@ constructor(private val repository: FoodRecipeRepo, application: Application
         }
     }
 
-    private fun handleFoodResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe>? {
+    private fun handleFoodResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe> {
         when {
             response.message().toString().contains("timeout") -> {
                 return NetworkResult.Error("Timeout")
@@ -71,7 +80,7 @@ constructor(private val repository: FoodRecipeRepo, application: Application
 
     private fun hasInternetConnection(): Boolean {
 
-        val connectivityManager = getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE)
+        val connectivityManager = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE)
                 as ConnectivityManager
 
         val activeNetwork = connectivityManager.activeNetwork ?: return false

@@ -3,11 +3,9 @@ package com.mehrsoft.foody.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.mehrsoft.foody.MyApplication
 import com.mehrsoft.foody.common.Constants.Companion.DATABASE_NAME
-import com.mehrsoft.foody.data.local.RecipesDao
-import com.mehrsoft.foody.data.local.RecipesDatabase
+import com.mehrsoft.foody.data.database.RecipesDao
+import com.mehrsoft.foody.data.database.RecipesDatabase
 
 import dagger.Module
 import dagger.Provides
@@ -19,6 +17,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+
+    @Singleton
+    @Provides
+    fun provideContext(application: Application): Context = application.applicationContext
+
 
     @Singleton
     @Provides

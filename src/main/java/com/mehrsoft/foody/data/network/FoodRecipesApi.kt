@@ -1,9 +1,8 @@
-package com.mehrsoft.foody.data.remote
+package com.mehrsoft.foody.data.network
 
 import com.mehrsoft.foody.models.FoodRecipe
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface FoodRecipesApi {

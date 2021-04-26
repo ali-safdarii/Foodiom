@@ -1,10 +1,9 @@
-package com.mehrsoft.foody.data.local
+package com.mehrsoft.foody.data.database
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 
 @Database(
         entities = [RecipesEntity::class],
@@ -12,7 +11,7 @@ import androidx.room.TypeConverter
         exportSchema = false
 )
 
-
+@TypeConverters(RecipesTypeConverter::class)
 abstract class RecipesDatabase() :RoomDatabase() {
 
     abstract fun recipesDao(): RecipesDao
