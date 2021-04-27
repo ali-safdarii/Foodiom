@@ -18,19 +18,18 @@ import com.mehrsoft.foody.models.Result
 class RecipesAdapter(private var result:List<Result>, private val context:Context) : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
 
-
     class MyViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
 
 
         fun bind(result: Result,context: Context){
 
-val titleTextView=itemView.findViewById<TextView>(R.id.title_textView)
-val descriptionTextView=itemView.findViewById<TextView>(R.id.description_textView)
-val heartTextView=itemView.findViewById<TextView>(R.id.heart_textView)
-val clockTextView=itemView.findViewById<TextView>(R.id.clock_textView)
-val leafTextView=itemView.findViewById<TextView>(R.id.leaf_textView)
-   val recipeImageView=itemView.findViewById<ImageView>(R.id.recipe_imageView)
-   val leafImageView=itemView.findViewById<ImageView>(R.id.leaf_imageView)
+            val titleTextView = itemView.findViewById<TextView>(R.id.title_textView)
+            val descriptionTextView = itemView.findViewById<TextView>(R.id.description_textView)
+            val heartTextView = itemView.findViewById<TextView>(R.id.heart_textView)
+            val clockTextView = itemView.findViewById<TextView>(R.id.clock_textView)
+            val leafTextView = itemView.findViewById<TextView>(R.id.leaf_textView)
+            val recipeImageView = itemView.findViewById<ImageView>(R.id.recipe_imageView)
+            val leafImageView = itemView.findViewById<ImageView>(R.id.leaf_imageView)
 
 
             itemView.apply {
@@ -56,8 +55,6 @@ val leafTextView=itemView.findViewById<TextView>(R.id.leaf_textView)
                             R.color.green
                         )
                     )
-
-
                 }
             }
 

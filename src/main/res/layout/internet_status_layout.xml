@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/errorImageView"
+        android:id="@+id/networkStatusImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_signal_wifi_statusbar_connected_no_internet_4_black_24dp"
@@ -28,9 +28,9 @@
         android:text="@string/no_internet_connection"
 
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/errorImageView"
-        app:layout_constraintStart_toStartOf="@+id/errorImageView"
-        app:layout_constraintTop_toBottomOf="@+id/errorImageView" />
+        app:layout_constraintEnd_toEndOf="@+id/networkStatusImageView"
+        app:layout_constraintStart_toStartOf="@+id/networkStatusImageView"
+        app:layout_constraintTop_toBottomOf="@+id/networkStatusImageView" />
 
     <TextView
         android:id="@+id/yourOfflineTextView"
