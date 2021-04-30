@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mehrsoft.foody.R
 import com.mehrsoft.foody.adapters.RecipesAdapter
 import com.mehrsoft.foody.common.Constants.Companion.TAG
@@ -33,6 +36,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private lateinit var recyclerView: ShimmerRecyclerView
     lateinit var result: List<Result>
 
+   private val args by navArgs<RecipesFragmentArgs>()
+
     lateinit var networkStatusLayout: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +56,16 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         mView = inflater.inflate(R.layout.fragment_recipes, container, false)
         networkStatusLayout = mView.findViewById(R.id.networkStatusLayout);
         recyclerView = mView.findViewById<ShimmerRecyclerView>(R.id.recyclerView)
+        val recipesFab=mView.findViewById<FloatingActionButton>(R.id.recipesFab)
 
-        setupRecyclerView()
+
+
         readDatabase()
+
+        recipesFab.setOnClickListener {
+
+            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+        }
         return mView
     }
 
@@ -61,11 +73,12 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, { db ->
 
-            if (db.isNotEmpty()) {
+            if (db.isNotEmpty() && !args.backFromBottomSheet) {
                 Log.d(TAG, "readDatabase Called")
+                recyclerView.hideShimmer()
                 mAdapter.setData(db[0].recipesFood)
+                setupRecyclerView()
 
-                //db.forEach { res-> Log.d(TAG, "readDatabase: ${res.recipesFood.results}")  }
             } else {
                 requestApiData()
             }
@@ -85,14 +98,15 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             when (response) {
                 is NetworkResult.Success -> {
 
+                    showNetworkStatus(response)
                     result = response.data!!.results
                     mAdapter = RecipesAdapter(result, requireContext())
                     response.data.let { mAdapter.setData(it) }
-                    showNetworkStatus(response)
-
+                    setupRecyclerView()
                 }
                 is NetworkResult.Error -> {
-                    recyclerView.hideShimmer()
+                    showNetworkStatus(response)
+                    //recyclerView.hideShimmer()
                     Toast.makeText(
                             requireContext(),
                             response.message.toString(),
@@ -100,10 +114,9 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                     ).show()
 
                     loadDataFromCache()
-                    showNetworkStatus(response)
                 }
                 is NetworkResult.Loading -> {
-                    recyclerView.showShimmer()
+                    //recyclerView.showShimmer()
                     showNetworkStatus(response)
                 }
             }
@@ -125,12 +138,25 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private fun showNetworkStatus(apiResponse:NetworkResult<FoodRecipe>?) {
         networkStatusLayout.visibility = View.VISIBLE
 
-        if (apiResponse is NetworkResult.Error)
-            networkStatusLayout.visibility = View.VISIBLE
-        else if(apiResponse is NetworkResult.Success)
-            networkStatusLayout.visibility = View.INVISIBLE
-        else if(apiResponse is NetworkResult.Loading)
-            networkStatusLayout.visibility = View.INVISIBLE
+        when (apiResponse) {
+            is NetworkResult.Error -> {
+                networkStatusLayout.visibility = View.VISIBLE
+                recyclerView.hideShimmer()
+                Log.d(TAG, "showNetworkStatus: Error")
+
+            }
+            is NetworkResult.Success -> {
+                networkStatusLayout.visibility = View.INVISIBLE
+                recyclerView.hideShimmer()
+                Log.d(TAG, "showNetworkStatus:Success ")
+            }
+            is NetworkResult.Loading -> {
+                networkStatusLayout.visibility = View.INVISIBLE
+                recyclerView.showShimmer()
+
+                Log.d(TAG, "showNetworkStatus: Loading")
+            }
+        }
 
     }
 }
