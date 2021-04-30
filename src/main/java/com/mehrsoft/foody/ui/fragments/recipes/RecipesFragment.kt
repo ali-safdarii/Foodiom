@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mehrsoft.foody.R
 import com.mehrsoft.foody.adapters.RecipesAdapter
 import com.mehrsoft.foody.common.Constants.Companion.TAG
+import com.mehrsoft.foody.common.NetworkListener
 import com.mehrsoft.foody.common.NetworkResult
 import com.mehrsoft.foody.common.observeOnce
 import com.mehrsoft.foody.models.FoodRecipe
@@ -24,9 +25,11 @@ import com.mehrsoft.foody.ui.viewmodels.MainViewModel
 import com.mehrsoft.foody.ui.viewmodels.RecipesViewModel
 import com.todkars.shimmer.ShimmerRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private lateinit var mainViewModel: MainViewModel
@@ -36,9 +39,9 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private lateinit var recyclerView: ShimmerRecyclerView
     lateinit var result: List<Result>
 
-   private val args by navArgs<RecipesFragmentArgs>()
-
+    private val args by navArgs<RecipesFragmentArgs>()
     lateinit var networkStatusLayout: View
+    lateinit var networkListener: NetworkListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +61,21 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         recyclerView = mView.findViewById<ShimmerRecyclerView>(R.id.recyclerView)
         val recipesFab=mView.findViewById<FloatingActionButton>(R.id.recipesFab)
 
+        networkListener = NetworkListener()
 
+
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                    .collect { status ->
+                        Log.d("NetworkListener", status.toString())
+                        /*recipesViewModel.networkStatus = status
+                        recipesViewModel.showNetworkStatus()
+                        readDatabase()*/
+                    }
+
+
+        }
 
         readDatabase()
 
