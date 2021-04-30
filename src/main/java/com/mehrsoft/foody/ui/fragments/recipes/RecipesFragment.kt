@@ -64,24 +64,32 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         networkListener = NetworkListener()
 
 
+        recipesViewModel.readBackOnline.observe(viewLifecycleOwner,{
+
+            recipesViewModel.backOnline=it
+        })
+
         lifecycleScope.launch {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
                     .collect { status ->
                         Log.d("NetworkListener", status.toString())
-                        /*recipesViewModel.networkStatus = status
+                        recipesViewModel.networkStatus = status
                         recipesViewModel.showNetworkStatus()
-                        readDatabase()*/
+                        readDatabase()
                     }
 
 
         }
 
-        readDatabase()
+
 
         recipesFab.setOnClickListener {
 
+            if(recipesViewModel.networkStatus)
             findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            else
+                recipesViewModel.showNetworkStatus()
         }
         return mView
     }

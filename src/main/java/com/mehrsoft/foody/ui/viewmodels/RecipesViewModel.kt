@@ -1,7 +1,9 @@
 package com.mehrsoft.foody.ui.viewmodels
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.mehrsoft.foody.common.Constants.Companion.API_KEY
 import com.mehrsoft.foody.common.Constants.Companion.DEFAULT_DIET_TYPE
@@ -26,13 +28,15 @@ class RecipesViewModel @Inject constructor(application: Application, private val
     private var mealType = DEFAULT_MEAL_TYPE
     private var dietType = DEFAULT_DIET_TYPE
 
+    var networkStatus = false
+    var backOnline = false
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
-
+    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
     fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) =
-            viewModelScope.launch(Dispatchers.IO) {
-                dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
+        }
 
 
     fun applyQueries(): HashMap<String, String> {
@@ -48,6 +52,23 @@ class RecipesViewModel @Inject constructor(application: Application, private val
         return queries
     }
 
+    private fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.saveBackOnline(backOnline)
+    }
 
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection. ", Toast.LENGTH_LONG).show()
+            saveBackOnline(true)
+        }else if(networkStatus) {
+
+            if (backOnline) {
+                Toast.makeText(getApplication(), "Internet Connection is Available. ", Toast.LENGTH_LONG)
+                    .show()
+                saveBackOnline(false)
+            }
+        }
+
+    }
 
 }
