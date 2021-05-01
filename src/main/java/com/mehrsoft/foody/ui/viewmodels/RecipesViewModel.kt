@@ -56,12 +56,12 @@ class RecipesViewModel @Inject constructor(application: Application, private val
         dataStoreRepository.saveBackOnline(backOnline)
     }
 
-    fun showNetworkStatus() {
+    fun showNetworkStatus():Boolean {
         if (!networkStatus) {
             Toast.makeText(getApplication(), "No Internet Connection. ", Toast.LENGTH_LONG).show()
             saveBackOnline(true)
-        }else if(networkStatus) {
 
+        }else if(networkStatus) {
             if (backOnline) {
                 Toast.makeText(getApplication(), "Internet Connection is Available. ", Toast.LENGTH_LONG)
                     .show()
@@ -69,6 +69,7 @@ class RecipesViewModel @Inject constructor(application: Application, private val
             }
         }
 
+        return networkStatus
     }
 
 }

@@ -62,6 +62,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         val recipesFab=mView.findViewById<FloatingActionButton>(R.id.recipesFab)
 
         networkListener = NetworkListener()
+/*
 
 
         recipesViewModel.readBackOnline.observe(viewLifecycleOwner,{
@@ -73,17 +74,21 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
                     .collect { status ->
-                        Log.d("NetworkListener", status.toString())
                         recipesViewModel.networkStatus = status
+
+                       // val status=recipesViewModel.showNetworkStatus()
+
                         recipesViewModel.showNetworkStatus()
+
+                        Log.d(TAG, "status: ${status.toString()}")
                         readDatabase()
                     }
 
 
         }
+*/
 
-
-
+        readDatabase()
         recipesFab.setOnClickListener {
 
             if(recipesViewModel.networkStatus)
