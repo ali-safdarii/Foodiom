@@ -2,10 +2,10 @@ package com.mehrsoft.foody.ui.fragments.recipes
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -26,12 +26,11 @@ import com.mehrsoft.foody.ui.viewmodels.RecipesViewModel
 import com.todkars.shimmer.ShimmerRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class RecipesFragment : Fragment(R.layout.fragment_recipes) {
+class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryTextListener {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
     private lateinit var mAdapter: RecipesAdapter
@@ -49,6 +48,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
         result = ArrayList<Result>()
         mAdapter = RecipesAdapter(result, requireContext())
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -97,6 +97,30 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 recipesViewModel.showNetworkStatus()
         }
         return mView
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.recipes_menu,menu)
+
+        val  search=menu.findItem(R.id.menu_search)
+        val searchView=search.actionView as? SearchView
+
+        searchView?.isSubmitButtonEnabled=true
+        searchView?.setOnQueryTextListener(this)
+
+    }
+
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query != null) {
+            searchApiData(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 
     private fun readDatabase() {
@@ -153,6 +177,31 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         })
     }
 
+    private fun searchApiData(searchQuery:String){
+        recyclerView.showShimmer()
+        mainViewModel.searchRecipes(recipesViewModel.applySearchQuery(searchQuery))
+        mainViewModel.searchedRecipesResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    recyclerView.hideShimmer()
+                    val foodRecipe = response.data
+                    foodRecipe?.let { mAdapter.setData(it) }
+                }
+                is NetworkResult.Error -> {
+                    recyclerView.hideShimmer()
+                    loadDataFromCache()
+                    Toast.makeText(
+                            requireContext(),
+                            response.message.toString(),
+                            Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is NetworkResult.Loading -> {
+                    recyclerView.showShimmer()
+                }
+            }
+        })
+    }
     private fun loadDataFromCache() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observe(viewLifecycleOwner, { database ->
@@ -189,4 +238,5 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         }
 
     }
+
 }

@@ -23,40 +23,39 @@ constructor(
 ) : ViewModel() {
 
 
-    //Room Database
+    /** ROOM DATABASE */
+
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readDatabase().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) =
-        viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.local.insertRecipes(recipesEntity)
+            }
 
-            repository.local.insertRecipes(recipesEntity)
-
-        }
-
-
-    //Retrofit
+    /** RETROFIT */
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+    var searchedRecipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
-    fun getRecipes(query: Map<String, String>) = viewModelScope.launch {
-
-        getRecipesSafeCall(query)
+    fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
+        getRecipesSafeCall(queries)
     }
 
-    private suspend fun getRecipesSafeCall(query: Map<String, String>) {
+    fun searchRecipes(searchQuery: Map<String, String>) = viewModelScope.launch {
+        searchRecipesSafeCall(searchQuery)
+    }
 
+    private suspend fun getRecipesSafeCall(queries: Map<String, String>) {
         recipesResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remote.getFoodRecipes(query)
-                recipesResponse.value = handleFoodResponse(response)
+                val response = repository.remote.getFoodRecipes(queries)
+                recipesResponse.value = handleFoodRecipesResponse(response)
 
-                val foodRecipe=recipesResponse.value!!.data
-
-                if (foodRecipe!=null)
-                    offlineCatchRecipes(foodRecipe)
-
+                val foodRecipe = recipesResponse.value!!.data
+                if(foodRecipe != null) {
+                    offlineCacheRecipes(foodRecipe)
+                }
             } catch (e: Exception) {
-
                 recipesResponse.value = NetworkResult.Error("Recipes not found.")
             }
         } else {
@@ -64,25 +63,36 @@ constructor(
         }
     }
 
-    private fun offlineCatchRecipes(foodRecipe: FoodRecipe) {
-        val recipesEntity=RecipesEntity(recipesFood = foodRecipe)
+    private suspend fun searchRecipesSafeCall(searchQuery: Map<String, String>) {
+        searchedRecipesResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.searchRecipes(searchQuery)
+                searchedRecipesResponse.value = handleFoodRecipesResponse(response)
+            } catch (e: Exception) {
+                searchedRecipesResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            searchedRecipesResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
+    private fun offlineCacheRecipes(foodRecipe: FoodRecipe) {
+        val recipesEntity = RecipesEntity(foodRecipe)
         insertRecipes(recipesEntity)
     }
 
-    private fun handleFoodResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe> {
+    private fun handleFoodRecipesResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe>? {
         when {
             response.message().toString().contains("timeout") -> {
                 return NetworkResult.Error("Timeout")
             }
-
             response.code() == 402 -> {
-                return NetworkResult.Error("Api Key Limited.")
+                return NetworkResult.Error("API Key Limited.")
             }
-
             response.body()!!.results.isNullOrEmpty() -> {
-                return NetworkResult.Error("Recipes not Found.")
+                return NetworkResult.Error("Recipes not found.")
             }
-
             response.isSuccessful -> {
                 val foodRecipes = response.body()
                 return NetworkResult.Success(foodRecipes!!)
@@ -92,7 +102,6 @@ constructor(
             }
         }
     }
-
 
     private fun hasInternetConnection(): Boolean {
 
