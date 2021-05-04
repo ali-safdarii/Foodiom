@@ -1,18 +1,23 @@
 package com.mehrsoft.foody.adapters
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mehrsoft.foody.R
+import com.mehrsoft.foody.common.Constants.Companion.TAG
 import com.mehrsoft.foody.common.RecipesDiffUtil
 import com.mehrsoft.foody.models.FoodRecipe
 import com.mehrsoft.foody.models.Result
+import com.mehrsoft.foody.ui.fragments.recipes.RecipesFragmentDirections
 
 
 class RecipesAdapter(private var result:List<Result>, private val context:Context) : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
@@ -70,6 +75,26 @@ class RecipesAdapter(private var result:List<Result>, private val context:Contex
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val recipeResult=result[position]
         holder.bind(result = recipeResult,context = context)
+
+        holder.itemView.setOnClickListener {
+
+
+            try {
+
+                val action=RecipesFragmentDirections.
+                actionRecipesFragmentToDetailsActivity(recipeResult)
+                it.findNavController().navigate(action)
+
+                Log.d(TAG, "onBindViewHolder: Called")
+
+            }catch (e:Exception){
+
+                Log.d(TAG, e.message.toString())
+            }
+
+
+
+        }
     }
 
     override fun getItemCount(): Int {

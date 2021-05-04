@@ -39,4 +39,9 @@
     <string name="search">search</string>
 
 
+    <string name="overview">Overview</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+
+
 </resources>
