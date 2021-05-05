@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 
-class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle) :
+class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle,private val resultBundle: Bundle) :
     FragmentStateAdapter(manager,lifecycle ){
 
     private val fragmentList : MutableList<Fragment> =ArrayList()
@@ -19,6 +19,7 @@ class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle) :
     }
 
     override fun createFragment(position: Int): Fragment {
+        fragmentList[position].arguments=resultBundle
         return  fragmentList[position]
     }
 
@@ -27,7 +28,7 @@ class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle) :
         titleList.add(title)
     }
 
-    fun getPageTitle(position: Int): CharSequence? {
+    fun getPageTitle(position: Int): CharSequence {
         return titleList[position]
     }
 

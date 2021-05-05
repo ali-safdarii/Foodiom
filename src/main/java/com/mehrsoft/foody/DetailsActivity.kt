@@ -6,16 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.navArgs
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.foody.adapters.PagerAdapter
 import com.example.foody.ui.fragments.ingredients.IngredientsFragment
 import com.example.foody.ui.fragments.instructions.InstructionsFragment
-import com.example.foody.ui.fragments.overview.OverviewFragment
+import com.mehrsoft.foody.ui.fragments.overview.OverviewFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.mehrsoft.foody.common.Constants.Companion.RECIPE_BUNDLE
 
 
 class DetailsActivity : AppCompatActivity() {
@@ -37,7 +36,10 @@ class DetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewPager.isSaveEnabled=false
-        val adapter =PagerAdapter(supportFragmentManager,lifecycle)
+        resultBundle=Bundle()
+        resultBundle.putParcelable(RECIPE_BUNDLE, args.result)
+
+        val adapter =PagerAdapter(supportFragmentManager,lifecycle,resultBundle)
 
         adapter.addFragment(OverviewFragment(), getString(R.string.overview))
         adapter.addFragment(IngredientsFragment(), getString(R.string.ingredients))
@@ -63,8 +65,6 @@ class DetailsActivity : AppCompatActivity() {
 
 
         try {
-            resultBundle=Bundle()
-            resultBundle.putParcelable("recipeBundle", args.result)
 
 
             val adapter = PagerAdapter(
