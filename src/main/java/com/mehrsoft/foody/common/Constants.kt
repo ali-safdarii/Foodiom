@@ -6,6 +6,7 @@ class Constants {
 
         const val TAG="Foody"
         const val BASE_URL = "https://api.spoonacular.com"
+        const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
         const val API_KEY = "1d6a54054d344c98a82159c719c667dd"
 
 
@@ -37,7 +38,7 @@ class Constants {
         const val PREFERENCES_DIET_TYPE_ID = "dietTypeId"
         const val PREFERENCES_BACK_ONLINE = "back_online"
 
-    //Argumant
+    //Arguments
         const val RECIPE_BUNDLE="recipeBundle"
     }
 

@@ -11,13 +11,16 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bumptech.glide.Glide
 import com.mehrsoft.foody.R
+import com.mehrsoft.foody.common.Constants
 import com.mehrsoft.foody.common.Constants.Companion.TAG
 import com.mehrsoft.foody.common.RecipesDiffUtil
 import com.mehrsoft.foody.models.FoodRecipe
 import com.mehrsoft.foody.models.Result
 import com.mehrsoft.foody.ui.fragments.recipes.RecipesFragmentDirections
+import kotlinx.android.synthetic.main.ingredients_row_layout.view.*
 
 
 class RecipesAdapter(private var result:List<Result>, private val context:Context) : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
@@ -38,7 +41,12 @@ class RecipesAdapter(private var result:List<Result>, private val context:Contex
 
 
             itemView.apply {
-                Glide.with(context).load(result.image).into(recipeImageView)
+
+                recipeImageView.load(result.image) {
+                    crossfade(600)
+                    error(R.drawable.ic_error_placeholder)
+                }
+
                 titleTextView.text=result.title
                 descriptionTextView.text=result.summary
                 heartTextView.text= result.aggregateLikes.toString()
