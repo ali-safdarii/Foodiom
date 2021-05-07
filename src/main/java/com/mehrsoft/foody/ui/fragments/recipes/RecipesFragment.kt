@@ -39,8 +39,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
     lateinit var result: List<Result>
 
     private val args by navArgs<RecipesFragmentArgs>()
-    lateinit var networkStatusLayout: View
-    lateinit var networkListener: NetworkListener
+    private lateinit var networkStatusLayout: View
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,41 +54,17 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_recipes, container, false)
         networkStatusLayout = mView.findViewById(R.id.networkStatusLayout);
         recyclerView = mView.findViewById<ShimmerRecyclerView>(R.id.recyclerView)
         val recipesFab=mView.findViewById<FloatingActionButton>(R.id.recipesFab)
 
-        networkListener = NetworkListener()
-/*
 
-
-        recipesViewModel.readBackOnline.observe(viewLifecycleOwner,{
-
-            recipesViewModel.backOnline=it
-        })
-
-        lifecycleScope.launch {
-            networkListener = NetworkListener()
-            networkListener.checkNetworkAvailability(requireContext())
-                    .collect { status ->
-                        recipesViewModel.networkStatus = status
-
-                       // val status=recipesViewModel.showNetworkStatus()
-
-                        recipesViewModel.showNetworkStatus()
-
-                        Log.d(TAG, "status: ${status.toString()}")
-                        readDatabase()
-                    }
-
-
-        }
-*/
 
         readDatabase()
+
         recipesFab.setOnClickListener {
 
             if(recipesViewModel.networkStatus)

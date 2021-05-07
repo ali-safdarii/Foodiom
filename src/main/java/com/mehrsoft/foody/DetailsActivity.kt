@@ -10,7 +10,7 @@ import androidx.navigation.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.example.foody.adapters.PagerAdapter
 import com.mehrsoft.foody.ui.fragments.ingredients.IngredientsFragment
-import com.example.foody.ui.fragments.instructions.InstructionsFragment
+import com.mehrsoft.foody.ui.fragments.instructions.InstructionsFragment
 import com.mehrsoft.foody.ui.fragments.overview.OverviewFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

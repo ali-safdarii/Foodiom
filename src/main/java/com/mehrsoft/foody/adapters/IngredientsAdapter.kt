@@ -35,7 +35,7 @@ class IngredientsAdapter :
 
         holder.itemView.ingredient_imageView.load(BASE_IMAGE_URL + ingredientList[position].image) {
             crossfade(600)
-            error(R.drawable.ic_error_placeholder)
+            error(R.drawable.error_placeholder)
         }
         holder.itemView.ingredient_name.text = ingredientList[position].name.capitalize(Locale.ROOT)
         holder.itemView.ingredient_amount.text = ingredientList[position].amount.toString()

@@ -44,7 +44,7 @@ class RecipesAdapter(private var result:List<Result>, private val context:Contex
 
                 recipeImageView.load(result.image) {
                     crossfade(600)
-                    error(R.drawable.ic_error_placeholder)
+                    error(R.drawable.error_placeholder)
                 }
 
                 titleTextView.text=result.title
