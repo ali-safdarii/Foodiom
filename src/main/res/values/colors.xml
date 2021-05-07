@@ -19,7 +19,9 @@
     <color name="dark">#313C44</color>
     <color name="darker">#151B20</color>
     <color name="red">#FF4646</color>
-    <color name="yellow">#FF8F00</color>
+    <color name="yellow_dark">#FF8F00</color>
+    <color name="yellow_A200">#ffff00</color>
+
     <color name="green">#00C980</color>
 
     <color name="gray_500">#9e9e9e</color>

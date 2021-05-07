@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.mehrsoft.foody.common.Constants.Companion.DATABASE_NAME
-import com.mehrsoft.foody.data.database.RecipesDao
+import com.mehrsoft.foody.data.database.dao.RecipesDao
 import com.mehrsoft.foody.data.database.RecipesDatabase
 
 import dagger.Module
@@ -36,7 +36,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideAuthTokenDao(db:RecipesDatabase):RecipesDao{
+    fun provideAuthTokenDao(db:RecipesDatabase): RecipesDao {
         return db.recipesDao()
     }
 

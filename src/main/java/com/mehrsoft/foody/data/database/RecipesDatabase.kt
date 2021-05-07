@@ -2,11 +2,13 @@ package com.mehrsoft.foody.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.mehrsoft.foody.data.database.dao.RecipesDao
+import com.mehrsoft.foody.data.database.entities.FavoritesEntity
+import com.mehrsoft.foody.data.database.entities.RecipesEntity
 
 @Database(
-        entities = [RecipesEntity::class],
+        entities = [RecipesEntity::class,FavoritesEntity::class],
         version = 1,
         exportSchema = false
 )

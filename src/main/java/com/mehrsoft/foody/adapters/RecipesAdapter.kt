@@ -23,13 +23,14 @@ import com.mehrsoft.foody.ui.fragments.recipes.RecipesFragmentDirections
 import kotlinx.android.synthetic.main.ingredients_row_layout.view.*
 
 
-class RecipesAdapter(private var result:List<Result>, private val context:Context) : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
+class RecipesAdapter() : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
+    private var result= emptyList<Result>()
 
     class MyViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
 
 
-        fun bind(result: Result,context: Context){
+        fun bind(result: Result){
 
             val titleTextView = itemView.findViewById<TextView>(R.id.title_textView)
             val descriptionTextView = itemView.findViewById<TextView>(R.id.description_textView)
@@ -76,13 +77,13 @@ class RecipesAdapter(private var result:List<Result>, private val context:Contex
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        val layoutInflater=LayoutInflater.from(context).inflate(R.layout.recipes_row_layout,parent,false)
+        val layoutInflater=LayoutInflater.from(parent.context).inflate(R.layout.recipes_row_layout,parent,false)
         return MyViewHolder(layoutInflater)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val recipeResult=result[position]
-        holder.bind(result = recipeResult,context = context)
+        holder.bind(recipeResult)
 
         holder.itemView.setOnClickListener {
 

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mehrsoft.foody.R
+import com.mehrsoft.foody.adapters.IngredientsAdapter
 import com.mehrsoft.foody.adapters.RecipesAdapter
 import com.mehrsoft.foody.common.Constants.Companion.TAG
 import com.mehrsoft.foody.common.NetworkListener
@@ -33,21 +34,21 @@ import kotlinx.coroutines.launch
 class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryTextListener {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
-    private lateinit var mAdapter: RecipesAdapter
+    //private lateinit var mAdapter: RecipesAdapter
     private lateinit var mView: View
     private lateinit var recyclerView: ShimmerRecyclerView
     lateinit var result: List<Result>
 
     private val args by navArgs<RecipesFragmentArgs>()
     private lateinit var networkStatusLayout: View
-
+    private val mAdapter: RecipesAdapter by lazy { RecipesAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
-        result = ArrayList<Result>()
-        mAdapter = RecipesAdapter(result, requireContext())
+        //result = ArrayList<Result>()
+        //mAdapter = RecipesAdapter(result, requireContext())
         setHasOptionsMenu(true)
     }
 
@@ -130,7 +131,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
 
                     showNetworkStatus(response)
                     result = response.data!!.results
-                    mAdapter = RecipesAdapter(result, requireContext())
+                    //mAdapter = RecipesAdapter(result, requireContext())
                     response.data.let { mAdapter.setData(it) }
                     setupRecyclerView()
                 }

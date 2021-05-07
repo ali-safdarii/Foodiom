@@ -95,6 +95,7 @@
                     android:layout_alignEnd="@id/heart_imageView"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
+                    android:maxLines="1"
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/red" />
@@ -107,7 +108,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_toEndOf="@id/heart_imageView"
                     app:srcCompat="@drawable/ic_schedule_black_24dp"
-                    app:tint="@color/yellow" />
+                    app:tint="@color/yellow_dark" />
 
                 <TextView
                     android:id="@+id/clock_textView"
@@ -120,7 +121,7 @@
                     android:layout_marginBottom="2dp"
                     android:text=""
                     android:textAlignment="center"
-                    android:textColor="@color/yellow" />
+                    android:textColor="@color/yellow_dark" />
 
 
                 <ImageView
