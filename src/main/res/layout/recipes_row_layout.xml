@@ -132,7 +132,7 @@
                     android:layout_alignTop="@id/heart_imageView"
                     android:layout_toEndOf="@id/leaf_textView"
                     android:layout_alignStart="@id/leaf_textView"
-                    app:srcCompat="@drawable/ic_flag_24" />
+                    app:srcCompat="@drawable/ic_leaf" />
 
                 <TextView
                     android:id="@+id/leaf_textView"

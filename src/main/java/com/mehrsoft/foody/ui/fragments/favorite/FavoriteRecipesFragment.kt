@@ -1,20 +1,37 @@
 package com.mehrsoft.foody.ui.fragments.favorite
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mehrsoft.foody.R
+import com.mehrsoft.foody.adapters.FavoriteRecipesAdapter
+import com.mehrsoft.foody.ui.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_favorite_recipes.*
 
-class FavoriteRecipesFragment : Fragment() {
+@AndroidEntryPoint
+class FavoriteRecipesFragment : Fragment(R.layout.fragment_favorite_recipes) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_recipes, container, false)
+
+    private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter() }
+    private val mainViewModel: MainViewModel by viewModels()
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        favoriteRecipesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        favoriteRecipesRecyclerView.adapter = mAdapter
+        mainViewModel.readFavoriteRecipes.observe(viewLifecycleOwner, Observer { data ->
+
+            if (data.isNullOrEmpty()){
+                no_data_textView.visibility=View.VISIBLE
+                no_data_imageView.visibility=View.VISIBLE
+            }else
+            mAdapter.setData(data)
+        })
     }
 
 }
