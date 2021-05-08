@@ -1,9 +1,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recipesRowLayout"
+    android:id="@+id/favoriteRecipesRowLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp">
 
@@ -12,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -21,9 +23,10 @@
         app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/innerConstriantLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            >
 
             <ImageView
                 android:id="@+id/favorite_recipe_imageView"
@@ -60,6 +63,8 @@
                 android:layout_marginTop="12dp"
                 android:ellipsize="end"
                 android:maxLines="3"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="14sp"
                 android:textColor="@color/darkGray"
                 app:layout_constraintEnd_toEndOf="@+id/favorite_title_textView"
                 app:layout_constraintStart_toStartOf="@+id/favorite_title_textView"

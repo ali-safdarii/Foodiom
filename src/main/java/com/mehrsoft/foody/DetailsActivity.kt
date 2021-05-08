@@ -117,7 +117,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun removeFromFavorites(item: MenuItem) {
         val favoritesEntity =
             FavoritesEntity(
-                savedRecipeId,
+                0,
                 args.result!!
             )
         mainViewModel.deleteFavoriteRecipe(favoritesEntity)

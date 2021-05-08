@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.fragment_favorite_recipes.*
 class FavoriteRecipesFragment : Fragment(R.layout.fragment_favorite_recipes) {
 
 
-    private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter() }
     private val mainViewModel: MainViewModel by viewModels()
+    private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(),mainViewModel) }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
