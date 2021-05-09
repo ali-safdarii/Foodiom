@@ -39,9 +39,12 @@
     <color name="cardBackgroundColor">@color/white</color>
     <color name="titleColor">@color/darker</color>
     <color name="statusBarColor">@color/colorPrimaryDark</color>
+
+
+    //Contextual colors
     <color name="contextualStatusBarColor">@color/darker</color>
     <color name="contextualActionBarColor">@color/dark</color>
-    <color name="contextualBackgroundColor">#F8F7F7</color>
+    <color name="contextualBackgroundColor">#EAE0E0</color>
     <color name="contextualItemColor">#550B93</color>
 
 </resources>

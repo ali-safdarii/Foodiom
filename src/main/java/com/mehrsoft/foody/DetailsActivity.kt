@@ -15,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mehrsoft.foody.common.Constants.Companion.RECIPE_BUNDLE
-import com.mehrsoft.foody.common.Constants.Companion.TAG
 import com.mehrsoft.foody.data.database.entities.FavoritesEntity
 import com.mehrsoft.foody.ui.fragments.ingredients.IngredientsFragment
 import com.mehrsoft.foody.ui.fragments.instructions.InstructionsFragment
@@ -35,6 +34,7 @@ class DetailsActivity : AppCompatActivity() {
     private var recipeSaved = false
     private var savedRecipeId = 0
 
+    private lateinit var menuItem:MenuItem
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
@@ -68,8 +68,8 @@ class DetailsActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.details_menu, menu)
-        val menuItem = menu?.findItem(R.id.saveFavorite_menu)
-        checkSavedRecipes(menuItem!!)
+         menuItem = menu!!.findItem(R.id.saveFavorite_menu)
+        checkSavedRecipes(menuItem)
         return true
     }
 
@@ -92,8 +92,6 @@ class DetailsActivity : AppCompatActivity() {
                         changeMenuItemColor(menuItem, R.color.yellow_A200)
                         savedRecipeId = savedRecipe.id
                         recipeSaved = true
-                    } else {
-                        changeMenuItemColor(menuItem, R.color.white)
                     }
                 }
             } catch (e: Exception) {
@@ -113,11 +111,10 @@ class DetailsActivity : AppCompatActivity() {
         showSnackBar("Recipe saved.")
         recipeSaved = true
     }
-
     private fun removeFromFavorites(item: MenuItem) {
         val favoritesEntity =
             FavoritesEntity(
-                0,
+                savedRecipeId,
                 args.result!!
             )
         mainViewModel.deleteFavoriteRecipe(favoritesEntity)
@@ -137,5 +134,10 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun changeMenuItemColor(item: MenuItem, color: Int) {
         item.icon.setTint(ContextCompat.getColor(this, color))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        changeMenuItemColor(menuItem, R.color.white)
     }
 }

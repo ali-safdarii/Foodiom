@@ -34,4 +34,9 @@ class FavoriteRecipesFragment : Fragment(R.layout.fragment_favorite_recipes) {
         })
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mAdapter.clearContextualActionMode()
+    }
 }

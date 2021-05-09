@@ -2,20 +2,21 @@ package com.mehrsoft.foody.adapters
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.google.android.material.snackbar.Snackbar
 import com.mehrsoft.foody.R
 import com.mehrsoft.foody.common.RecipesDiffUtil
 import com.mehrsoft.foody.data.database.entities.FavoritesEntity
 import com.mehrsoft.foody.ui.fragments.favorite.FavoriteRecipesFragmentDirections
 import com.mehrsoft.foody.ui.viewmodels.MainViewModel
-import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.favorite_recipes_row_layout.view.*
+import org.jsoup.Jsoup
 
 
 class FavoriteRecipesAdapter(
@@ -54,7 +55,10 @@ class FavoriteRecipesAdapter(
                 }
 
                 titleTextView.text=favoritesEntity.result.title
-                descriptionTextView.text=favoritesEntity.result.summary
+
+
+                descriptionTextView.text=Jsoup.parse(favoritesEntity.result.summary).text()
+
                 heartTextView.text= favoritesEntity.result.aggregateLikes.toString()
                 clockTextView.text=favoritesEntity.result.readyInMinutes.toString()
 
@@ -88,8 +92,8 @@ class FavoriteRecipesAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         myViewHolder.add(holder)
-        val favorite = favoriteList[position]
         rootView = holder.itemView.rootView
+        val favorite = favoriteList[position]
         holder.bind(favorite)
 
         //Single ClickListener
@@ -116,8 +120,8 @@ class FavoriteRecipesAdapter(
                 applySelection(holder, favorite)
                 true
             } else {
-                multiSelection = false
-                false
+                applySelection(holder,favorite)
+                true
             }
 
 
@@ -150,8 +154,6 @@ class FavoriteRecipesAdapter(
         holder: MyViewHolder,
         backgroundColor: Int,
         strokeColor: Int,
-
-
         ) {
 
 
@@ -163,68 +165,13 @@ class FavoriteRecipesAdapter(
         )
 
 
-/*
-        holder.itemView.favorite_title_textView.setTextColor(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-        holder.itemView.favorite_description_textView.setTextColor(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-        holder.itemView.favorite_heart_textView.setTextColor(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-        holder.itemView.favorite_clock_textView.setTextColor(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-        holder.itemView.favorite_leaf_textView.setTextColor(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-
-        holder.itemView.favorite_leaf_imageView.setColorFilter(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-
-        holder.itemView.favorite_clock_imageView.setColorFilter(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-
-
-        holder.itemView.favorite_heart_imageView.setColorFilter(
-            ContextCompat.getColor(
-                requireActivity,
-                contextualItemColor
-            )
-        )
-*/
-
-
     }
 
     private fun applyActionModeTitle() {
         when (selectedRecipes.size) {
             0 -> {
                 mActionMode.finish()
+                multiSelection = false
             }
             1 -> {
                 mActionMode.title = "${selectedRecipes.size} item selected"
@@ -266,15 +213,6 @@ class FavoriteRecipesAdapter(
         return true
     }
 
-    private fun showSnackBar(message: String) {
-        Snackbar.make(
-            rootView,
-            message,
-            Snackbar.LENGTH_SHORT
-        ).setAction("Okay") {}
-            .show()
-    }
-
     override fun onDestroyActionMode(actionMode: ActionMode?) {
         myViewHolder.forEach { holder ->
             changeRecipesStyles(holder, R.color.cardBackgroundColor, R.color.strokeColor)
@@ -283,6 +221,17 @@ class FavoriteRecipesAdapter(
         multiSelection = false
         selectedRecipes.clear()
         changeStatusColor(R.color.statusBarColor)
+
+        //read recipeFavorite again
+        mainViewModel.readFavoriteRecipes.observe(requireActivity, Observer { data ->
+
+            setData(data)
+        })
+
+    }
+
+    private fun showSnackBar(message: String) {
+        Toast.makeText(requireActivity, message, Toast.LENGTH_LONG).show()
     }
 
     fun setData(newFavoriteRecipes: List<FavoritesEntity>) {
@@ -291,5 +240,11 @@ class FavoriteRecipesAdapter(
         val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
         favoriteList = newFavoriteRecipes
         diffUtilResult.dispatchUpdatesTo(this)
+    }
+
+
+    fun clearContextualActionMode(){
+        if (this::mActionMode.isInitialized)
+            mActionMode.finish()
     }
 }

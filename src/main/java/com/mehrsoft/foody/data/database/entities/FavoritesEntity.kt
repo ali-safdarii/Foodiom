@@ -1,5 +1,6 @@
 package com.mehrsoft.foody.data.database.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,5 +12,7 @@ class FavoritesEntity(
 
     @PrimaryKey(autoGenerate = true)
     var id: Int,
-    var result: Result
+    var result: Result,
+
+
 )

@@ -21,6 +21,7 @@ import com.mehrsoft.foody.models.FoodRecipe
 import com.mehrsoft.foody.models.Result
 import com.mehrsoft.foody.ui.fragments.recipes.RecipesFragmentDirections
 import kotlinx.android.synthetic.main.ingredients_row_layout.view.*
+import org.jsoup.Jsoup
 
 
 class RecipesAdapter() : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
@@ -49,7 +50,7 @@ class RecipesAdapter() : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
                 }
 
                 titleTextView.text=result.title
-                descriptionTextView.text=result.summary
+                descriptionTextView.text= Jsoup.parse(result.summary).text()
                 heartTextView.text= result.aggregateLikes.toString()
                 clockTextView.text=result.readyInMinutes.toString()
 

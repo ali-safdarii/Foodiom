@@ -65,6 +65,7 @@
                 android:maxLines="3"
                 android:fontFamily="@font/roboto_regular"
                 android:textSize="14sp"
+
                 android:textColor="@color/darkGray"
                 app:layout_constraintEnd_toEndOf="@+id/favorite_title_textView"
                 app:layout_constraintStart_toStartOf="@+id/favorite_title_textView"
