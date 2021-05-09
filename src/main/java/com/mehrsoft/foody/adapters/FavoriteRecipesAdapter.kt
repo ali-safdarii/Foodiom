@@ -10,8 +10,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mehrsoft.foody.R
 import com.mehrsoft.foody.common.RecipesDiffUtil
+import com.mehrsoft.foody.common.showToast
 import com.mehrsoft.foody.data.database.entities.FavoritesEntity
 import com.mehrsoft.foody.ui.fragments.favorite.FavoriteRecipesFragmentDirections
 import com.mehrsoft.foody.ui.viewmodels.MainViewModel
@@ -33,6 +35,7 @@ class FavoriteRecipesAdapter(
     private lateinit var rootView: View
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
 
 
         fun bind(favoritesEntity: FavoritesEntity) {
@@ -185,7 +188,7 @@ class FavoriteRecipesAdapter(
 
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
 
-        actionMode?.menuInflater?.inflate(R.menu.favorite_contexual_menu, menu)
+        actionMode?.menuInflater?.inflate(R.menu.favorite_delete_menu, menu)
         changeStatusColor(R.color.contextualStatusBarColor)
         mActionMode = actionMode!!
         return true
@@ -198,17 +201,16 @@ class FavoriteRecipesAdapter(
     override fun onActionItemClicked(actionMode: ActionMode?, menu: MenuItem?): Boolean {
 
         if (menu!!.itemId == R.id.delete_favorite_recipe_menu) {
+            //showDialog("Delete","Are you Sure ?")
 
             selectedRecipes.forEach {
-
                 mainViewModel.deleteFavoriteRecipe(it)
             }
-
-            showSnackBar("${selectedRecipes.size} Recipe/s removed.")
+            requireActivity.
+            showToast("${selectedRecipes.size} Recipe/s removed.")
             multiSelection=false
             selectedRecipes.clear()
             actionMode?.finish()
-
         }
         return true
     }
@@ -240,11 +242,27 @@ class FavoriteRecipesAdapter(
         val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
         favoriteList = newFavoriteRecipes
         diffUtilResult.dispatchUpdatesTo(this)
+
     }
 
 
     fun clearContextualActionMode(){
         if (this::mActionMode.isInitialized)
             mActionMode.finish()
+    }
+
+    private fun showDialog(title:String, message: String){
+        MaterialAlertDialogBuilder(requireActivity)
+            .setTitle(title)
+            .setMessage(message)
+
+            .setNeutralButton("CANCEL") { dialog, which ->
+
+                dialog.dismiss()
+            }
+            .setPositiveButton("YES") { dialog, which ->
+
+            }
+            .show()
     }
 }
