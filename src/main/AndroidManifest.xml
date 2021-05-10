@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/splash_screen_style">
         <activity android:name=".DetailsActivity"
             android:label="Details"
             android:theme="@style/DetailsActivityStyle"/>

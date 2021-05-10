@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bannerView:View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_main)
 
         bannerView=findViewById(R.id.bannerLayout)
