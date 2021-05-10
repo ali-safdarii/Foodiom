@@ -1,8 +1,10 @@
 package com.mehrsoft.foody.data.network
 
+import com.mehrsoft.foody.models.FoodJoke
 import com.mehrsoft.foody.models.FoodRecipe
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface FoodRecipesApi {
@@ -18,6 +20,11 @@ interface FoodRecipesApi {
             @QueryMap searchQuery: Map<String, String>
     ): Response<FoodRecipe>
 
+
+    @GET("food/jokes/random")
+    suspend fun foodJoke(
+        @Query("apiKey") apiKey: String
+    ): Response<FoodJoke>
 
 
 }

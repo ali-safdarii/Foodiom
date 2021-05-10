@@ -47,8 +47,6 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
-        //result = ArrayList<Result>()
-        //mAdapter = RecipesAdapter(result, requireContext())
         setHasOptionsMenu(true)
     }
 

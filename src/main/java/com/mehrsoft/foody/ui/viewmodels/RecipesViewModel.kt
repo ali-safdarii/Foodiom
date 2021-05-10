@@ -26,9 +26,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipesViewModel @Inject constructor(application: Application, private val dataStoreRepository: DataStoreRepository) : AndroidViewModel(application) {
 
-    private var mealType = DEFAULT_MEAL_TYPE
-    private var dietType = DEFAULT_DIET_TYPE
-
     var networkStatus = false
     var backOnline = false
 

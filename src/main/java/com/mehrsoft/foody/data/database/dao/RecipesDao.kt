@@ -2,6 +2,7 @@ package com.mehrsoft.foody.data.database.dao
 
 import androidx.room.*
 import com.mehrsoft.foody.data.database.entities.FavoritesEntity
+import com.mehrsoft.foody.data.database.entities.FoodJokeEntity
 import com.mehrsoft.foody.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -16,13 +17,19 @@ interface RecipesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFoodJoke(foodJokeEntity: FoodJokeEntity)
+
+
     @Query("SELECT * FROM recipes_table ORDER BY id ASC")
      fun readRecipes(): Flow<List<RecipesEntity>>
 
-
-
     @Query("SELECT * FROM favorite_recipes_table ORDER BY id ASC")
     fun readFavoriteRecipes(): Flow<List<FavoritesEntity>>
+
+
+    @Query("SELECT * FROM food_joke_table ORDER BY id ASC")
+    fun readFoodJoke(): Flow<List<FoodJokeEntity>>
 
     @Delete
     suspend fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity)
