@@ -1,5 +1,5 @@
 
- <p style="font-weight: bold;">Foodiom app based on MVVM architecture.</p>
+ Foodiom app based on <h3>MVVM architecture</h3>
 Beautiful UI/UX 
 
 
