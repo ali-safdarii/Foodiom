@@ -4,6 +4,49 @@
  <li>
   Beautiful UI/UX 
   </li>
+ 
+ <li>
+ 100% Kotlin based + Coroutines for asynchronous.
+
+ <li>
+  test 
+ </li>
+ 
+ 
+ <li>
+  test 
+ </li>
+ 
+ <li>
+  test 
+ </li>
+ 
+ </li>
+ 
+ 
+ <li>
+  
+ </li>
+ 
+ 
+ 
+ 
+ <li>
+  
+ </li>
+ 
+ 
+ 
+ <li>
+  
+ </li>
+ 
+ 
+ 
+ <li>
+  
+ </li>
+ 
 <ul>
 
 <h2>ScreenShoots:</h2>     
