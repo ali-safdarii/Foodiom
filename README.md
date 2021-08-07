@@ -21,13 +21,6 @@
 
     <li>
         Android JetPack:
-        <ul>
-            <li> Navigation Component</li>
-            <li> Hilt-Dependency Injection</li>
-            <li>DataStore</li>
-            <li> Room Persistence</li>
-            <li>ViewModel</li>
-        </ul>
     </li>
 
     <li>Retrofit2 & Gson - constructing the REST API</li>
