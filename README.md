@@ -1,7 +1,10 @@
 
- Foodiom app based on <h3>MVVM architecture</h3>
-Beautiful UI/UX 
-
+ <h3> Foodiom app based on MVVM architecture</h3>
+  <ul>
+ <li>
+  Beautiful UI/UX 
+  </li>
+<ul>
 
 <h2>ScreenShoots:</h2>     
 
