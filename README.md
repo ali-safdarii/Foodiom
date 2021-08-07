@@ -6,4 +6,4 @@ Beautiful UI/UX
 
 
 ScreenShots:
-![alt text](http://coffe-android.ir/image/Foody/foody_3.png)
+<img src="http://coffe-android.ir/image/Foody/foody_3.png" width="100" height="100">
