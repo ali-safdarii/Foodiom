@@ -1,38 +1,4 @@
-
- <h3> Foodiom app based on MVVM architecture</h3>
-
-<ul>
-
-    <li>
-        Offline Mode
-    </li>
-
-    <li>
-        Beautiful UI/UX
-    </li>
-
-    <li>
-        100% Kotlin based + Coroutines for asynchronous.
-    </li>
-
-    <li>
-        Mvvm Architecture
-    </li>
-
-    <li>
-        Android JetPack:
-    </li>
-
-    <li>Retrofit2 & Gson - constructing the REST API</li>
-    <li>Coil-Image Loading library</li>
-    <li>Shimmer Effect </li>
-</ul>
-
-
-
-
-
-
+<h3> Foodiom app based on MVVM architecture</h3>
 <h2>ScreenShoots:</h2>     
 <table>
   <tr>
@@ -49,3 +15,27 @@
     <td><img src="http://coffe-android.ir/image/Foody/foody_1.png" width="200"> </td>
   </tr>
  </table>
+
+<h2>Tech stack & Open-source libraries</h2>  
+
+<ul>
+ <li> Beautiful UI/UX </li>
+   <li>
+        Offline Mode
+    </li>
+<li>100% <a href="https://kotlinlang.org/" rel="nofollow">Kotlin</a> based + <a href="https://github.com/Kotlin/kotlinx.coroutines">Coroutines</a> for asynchronous.</li>
+<li> Mvvm Architecture</li>
+ 
+<li>
+        Android JetPack:
+        <ul>
+            <li> Navigation Component</li>
+            <li> Hilt-Dependency Injection</li>
+            <li>DataStore</li>
+            <li> Room Persistence</li>
+            <li>ViewModel</li>
+        </ul>
+    </li> 
+
+ </ul>
+
