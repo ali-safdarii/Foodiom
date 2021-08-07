@@ -37,5 +37,10 @@
         </ul>
     </li> 
 
+  <li><a href="https://github.com/square/retrofit">Retrofit2 &amp; Gson</a> - constructing the REST API</li>
+<li><a href="https://coil-kt.github.io/coil/" rel="nofollow">Coil</a> Image loading Library</li>
+<li>Shimmer Effect </li>
+
+  
  </ul>
 
