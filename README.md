@@ -1,5 +1,6 @@
 
  <h3> Foodiom app based on MVVM architecture</h3>
+
 <ul>
 
     <li>
@@ -34,8 +35,12 @@
     <li>Shimmer Effect </li>
 </ul>
 
-<h2>ScreenShoots:</h2>     
 
+
+
+
+
+<h2>ScreenShoots:</h2>     
 <table>
   <tr>
     <td><img src="http://coffe-android.ir/image/Foody/foody_3.png" width="200"> </td>
