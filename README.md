@@ -7,19 +7,6 @@
  
  <li>
  100% Kotlin based + Coroutines for asynchronous.
-
- <li>
-  test 
- </li>
- 
- 
- <li>
-  test 
- </li>
- 
- <li>
-  test 
- </li>
  
  </li>
  
