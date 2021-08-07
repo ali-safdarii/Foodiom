@@ -5,5 +5,5 @@ Beautiful UI/UX
 
 
 
-ScreenShot:
+ScreenShots:
 ![alt text](http://coffe-android.ir/image/Foody/foody_3.png)
