@@ -1,5 +1,6 @@
 <h3> Foodiom app based on MVVM architecture</h3>
 <h2>ScreenShoots:</h2>     
+<!--
 <table>
   <tr>
     <td><img src="https://coffe-android.ir/public/images/Foody/foody_3.png" width="200"> </td>
@@ -15,7 +16,7 @@
     <td><img src="https://coffe-android.ir/public/images/Foody/foody_1.png" width="200"> </td>
   </tr>
  </table>
-
+-->
 <h2>Tech stack & Open-source libraries</h2>  
 
 <ul>
